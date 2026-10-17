@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>図書館概論</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      background: #e8f5ff;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 24px;
+      border: 1.5px solid #b8e0f7;
+      padding: 2rem 1.5rem;
+      max-width: 520px;
+      width: 100%;
+      height: fit-content;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid #85c7ee;
+      border-radius: 999px;
+      font-size: 11px;
+      color: #4aa0d0;
+      padding: 3px 14px;
+      margin-bottom: 1rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .main-title-input {
+      font-size: 20px;
+      font-weight: 500;
+      color: #2d7ab5;
+      text-align: center;
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .main-title-input::placeholder {
+      color: #90c8e8;
+    }
+
+    .author-input {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      color: #7bbcd6;
+      border: none;
+      outline: none;
+      background: transparent;
+      margin-bottom: 1.5rem;
+    }
+
+    .author-input::placeholder {
+      color: #b5dff5;
+    }
+
+    .section {
+      margin-bottom: 1.25rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-bar {
+      width: 18px;
+      height: 10px;
+      border-radius: 3px;
+      background: #85c7ee;
+      flex-shrink: 0;
+    }
+
+    .section-title-input {
+      font-size: 14px;
+      font-weight: 500;
+      color: #2d7ab5;
+      border: none;
+      outline: none;
+      background: transparent;
+      flex: 1;
+    }
+
+    .section-title-input::placeholder {
+      color: #90c8e8;
+    }
+
+    .text-block {
+      background: #f0f9ff;
+      border-radius: 14px;
+      border: 1px solid #ceeaf8;
+      padding: 0.9rem 1rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .block-icon {
+      font-size: 14px;
+      color: #90c8e8;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .block-textarea {
+      flex: 1;
+      font-size: 13.5px;
+      color: #3a6e8f;
+      line-height: 1.7;
+      border: none;
+      outline: none;
+      background: transparent;
+      resize: none;
+      min-height: 60px;
+      width: 100%;
+      font-family: sans-serif;
+    }
+
+    .block-textarea::placeholder {
+      color: #a8d8f0;
+    }
+
+    .add-section-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      font-size: 13px;
+      color: #4aa0d0;
+      cursor: pointer;
+      background: none;
+      border: 1.5px dashed #85c7ee;
+      border-radius: 14px;
+      padding: 10px;
+      margin-top: 0.5rem;
+    }
+
+    .add-section-btn:hover {
+      background: #e8f5ff;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #90c8e8;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px dashed #ceeaf8;
+    }
+
+    .footer-input {
+      border: none;
+      outline: none;
+      background: transparent;
+      text-align: center;
+      font-size: 12px;
+      color: #7bbcd6;
+      width: 180px;
+    }
+
+    .footer-input::placeholder {
+      color: #b5dff5;
+    }
+
+    .dot-sep {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin: 0.5rem 0;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #b5dff5;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #b5dff5;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <input class="main-title-input" type="text" placeholder="🍀 第９回">
+    <input class="author-input" type="text" placeholder="2515071 渡部紗朱">
+
+    <div id="sections-container"></div>
+
+  </div>
+
+  <script>
+    let sectionCount = 0;
+
+    function addSection(defaultTitle = '',defaultText = '') {
+      sectionCount++;
+      const id = 'sec-' + sectionCount;
+      const container = document.getElementById('sections-container');
+      const sec = document.createElement('div');
+      sec.className = 'section';
+      sec.id = id;
+
+      sec.innerHTML = `
+        <div class="section-header">
+          <div class="section-bar"></div>
+          <input class="section-title-input" type="text" placeholder="${sectionCount}. 見出し" value="${defaultTitle}">
+        </div>
+        <div class="text-block">
+          <i class="ti ti-heart block-icon"></i>
+          <textarea class="block-textarea" placeholder="本文" oninput="autoResize(this)">${defaultText}</textarea>
+        </div>
+        <div class="dot-sep">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      `;
+
+      container.appendChild(sec);
+      sec.querySelector('textarea') && autoResize(sec.querySelector('textarea'));
+    }
+
+    function autoResize(ta) {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }
+
+    addSection('1.健康情報サービス','近年ではSNSの影響で病名が不正確に診断されることがあるから、公共図書館という信頼性の高い場所で情報を入手できると非常に安心できると思った。しかし、専門的な知識を図書館員に求めるのは危険性があるため、専門的な機関との連携をし、情報を提供することが出来たらよいと感じた。');
+    addSection('専門図書館','専門的な教育を受けることができない人からしたら、専門図書館は気軽に行けて信ぴょう性も高く助かる存在だと思った。研究所や学協会にある専門図書館は、市販されている一般書では得られない専門的な学術書があるから、学生にもありがたい存在だと印象に残った。');
+  </script>
+</body>
+</html>

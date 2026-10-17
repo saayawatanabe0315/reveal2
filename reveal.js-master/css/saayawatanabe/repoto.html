@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>レポート課題</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fff6e9;
+    --wood:#f6e9c9;
+    --wood-deep:#ecd8a4;
+    --ink:#4a3728;
+    --leaf:#5fae7a;
+    --leaf-deep:#3f7f57;
+    --sky:#7fd0ee;
+    --sun:#ffc247;
+    --berry:#ff7f9c;
+    --paper:#fffdf8;
+  }
+
+  *{ box-sizing:border-box; }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.001ms !important;
+      scroll-behavior:auto !important;
+    }
+  }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 12% 6%, rgba(127,208,238,0.28), transparent 42%),
+      radial-gradient(circle at 90% 14%, rgba(255,194,71,0.20), transparent 38%),
+      radial-gradient(circle at 85% 95%, rgba(95,174,122,0.22), transparent 45%),
+      var(--cream);
+    color:var(--ink);
+    font-family:"Zen Kaku Gothic New", sans-serif;
+    line-height:1.9;
+    display:flex;
+    justify-content:center;
+    padding:0 16px 90px;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* ふわふわ漂う背景の葉っぱたち */
+  .floaties{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+  }
+  .floaties span{
+    position:absolute;
+    font-size:1.6rem;
+    opacity:0.35;
+    animation:drift linear infinite;
+    will-change:transform;
+  }
+  @keyframes drift{
+    0%{ transform:translateY(110vh) translateX(0) rotate(0deg); }
+    100%{ transform:translateY(-10vh) translateX(30px) rotate(360deg); }
+  }
+
+  .page{
+    max-width:720px;
+    width:100%;
+    position:relative;
+    z-index:1;
+  }
+
+  /* 屋根の曲線（メディアコスモスの「グローブ」屋根をイメージ）ゆらゆら動く */
+  .roof{
+    margin:32px 0 -1px;
+  }
+  .roof svg{ display:block; width:100%; height:auto; }
+  .roof path{
+    animation:sway 6s ease-in-out infinite;
+    transform-origin:center;
+  }
+  @keyframes sway{
+    0%,100%{ d:path("M0,40 C120,0 240,60 360,20 C480,-10 600,55 720,15 L720,60 L0,60 Z"); }
+    50%{ d:path("M0,30 C120,55 240,5 360,30 C480,50 600,10 720,35 L720,60 L0,60 Z"); }
+  }
+
+  header{
+    background:var(--paper);
+    padding:24px 40px 40px;
+    border-radius:0 0 32px 32px;
+    box-shadow:0 12px 30px rgba(74,55,40,0.12);
+    text-align:center;
+    animation:pop-in 0.7s cubic-bezier(.22,1.4,.36,1) both;
+  }
+
+  @keyframes pop-in{
+    0%{ opacity:0; transform:translateY(-18px) scale(0.96); }
+    100%{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.82rem;
+    letter-spacing:0.1em;
+    color:#fff;
+    background:linear-gradient(120deg, var(--leaf), var(--leaf-deep));
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:16px;
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-weight:700;
+    box-shadow:0 4px 10px rgba(63,127,87,0.28);
+    animation:wiggle 3.2s ease-in-out infinite;
+  }
+  @keyframes wiggle{
+    0%,100%{ transform:rotate(-1.5deg); }
+    50%{ transform:rotate(1.5deg); }
+  }
+
+  h1{
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-weight:900;
+    font-size:1.15rem;
+    margin:0 0 10px;
+    color:var(--ink);
+    line-height:1.7;
+  }
+
+  .name{
+    margin-top:18px;
+    font-size:1rem;
+    color:var(--ink);
+  }
+  .name em{
+    font-style:normal;
+    border-bottom:3px solid var(--sun);
+    padding:0 6px;
+    border-radius:2px;
+  }
+
+  main{
+    margin-top:30px;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+
+  .card{
+    background:var(--paper);
+    padding:32px 30px;
+    border-radius:26px;
+    box-shadow:0 10px 26px rgba(74,55,40,0.10);
+    font-size:1.05rem;
+    position:relative;
+    opacity:0;
+    transform:translateY(28px) rotate(var(--tilt,0deg));
+    transition:opacity 0.7s ease, transform 0.7s cubic-bezier(.22,1.2,.36,1);
+  }
+  .card.intro{ --tilt:0deg; }
+  .card:nth-of-type(2){ --tilt:-0.6deg; }
+  .card:nth-of-type(3){ --tilt:0.6deg; }
+  .card:nth-of-type(4){ --tilt:-0.6deg; }
+  .card:nth-of-type(5){ --tilt:0.6deg; }
+  .card:nth-of-type(6){ --tilt:0deg; }
+
+  .card.in-view{
+    opacity:1;
+    transform:translateY(0) rotate(0deg);
+  }
+
+  .card p{ margin:0; }
+
+  .badge{
+    position:absolute;
+    top:-16px;
+    left:26px;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--sun), #ffab3d);
+    color:#5a3b12;
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1rem;
+    box-shadow:0 6px 14px rgba(255,171,61,0.4);
+    animation:bob 2.6s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-5px); }
+  }
+
+  main a{
+    color:var(--leaf-deep);
+    text-decoration:none;
+    font-weight:700;
+    border-bottom:2px dashed var(--leaf);
+    transition:background 0.25s ease, color 0.25s ease;
+    padding:0 2px;
+  }
+  main a:hover{
+    background:rgba(95,174,122,0.15);
+    border-bottom-style:solid;
+  }
+  main a:visited{
+    color:#2f6b46;
+  }
+
+  .highlight, .highlight2{
+    color:var(--berry);
+    font-weight:700;
+    background:linear-gradient(180deg, transparent 65%, rgba(255,127,156,0.22) 65%);
+    -webkit-box-decoration-break:clone;
+    box-decoration-break:clone;
+    border-radius:4px;
+    padding:0 2px;
+    animation:tiny-pop 2.4s ease-in-out infinite;
+  }
+  @keyframes tiny-pop{
+    0%,90%,100%{ color:var(--berry); }
+    95%{ color:#ff4d73; }
+  }
+
+  /* 動画エリア */
+  .video-block{
+    margin-top:16px;
+    background:var(--paper);
+    border-radius:26px;
+    padding:32px 30px 38px;
+    box-shadow:0 10px 26px rgba(74,55,40,0.10);
+    text-align:center;
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.7s ease, transform 0.7s cubic-bezier(.22,1.2,.36,1);
+  }
+  .video-block.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .video-block h2{
+    font-family:"Zen Maru Gothic", sans-serif;
+    font-weight:700;
+    font-size:1.3rem;
+    color:var(--ink);
+    margin:0 0 6px;
+  }
+  .video-block .sub{
+    font-size:0.85rem;
+    color:var(--leaf-deep);
+    margin-bottom:18px;
+    font-weight:700;
+  }
+  .video-frame{
+    aspect-ratio:16/9;
+    width:100%;
+    border:3px solid var(--wood-deep);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 18px rgba(74,55,40,0.14);
+    transition:transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .video-frame:hover{
+    transform:translateY(-4px) scale(1.01);
+    box-shadow:0 14px 26px rgba(74,55,40,0.2);
+  }
+  .video-frame iframe{
+    width:100%;
+    height:100%;
+    display:block;
+    border:0;
+  }
+
+  footer{
+    text-align:center;
+    font-size:0.82rem;
+    color:#8a7350;
+    margin-top:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+  }
+  footer .leaf-icon{
+    display:inline-block;
+    animation:sway-icon 2.4s ease-in-out infinite;
+  }
+  @keyframes sway-icon{
+    0%,100%{ transform:rotate(-8deg); }
+    50%{ transform:rotate(8deg); }
+  }
+
+  @media (max-width:520px){
+    header{ padding:18px 22px 30px; }
+    .card{ padding:26px 20px; }
+    h1{ font-size:1.02rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="floaties" aria-hidden="true">
+  <span style="left:6%; animation-duration:14s; animation-delay:0s;">🌿</span>
+  <span style="left:20%; animation-duration:18s; animation-delay:2s; font-size:1.2rem;">📖</span>
+  <span style="left:38%; animation-duration:16s; animation-delay:5s;">🍃</span>
+  <span style="left:55%; animation-duration:20s; animation-delay:1s; font-size:1.1rem;">☀️</span>
+  <span style="left:70%; animation-duration:15s; animation-delay:4s;">🌳</span>
+  <span style="left:85%; animation-duration:19s; animation-delay:3s; font-size:1.2rem;">📚</span>
+  <span style="left:95%; animation-duration:17s; animation-delay:6s;">🍃</span>
+</div>
+
+<div class="page">
+
+  <div class="roof">
+    <svg viewBox="0 0 720 60" preserveAspectRatio="none">
+      <path d="M0,40 C120,0 240,60 360,20 C480,-10 600,55 720,15 L720,60 L0,60 Z" fill="#fffdf8"/>
+    </svg>
+  </div>
+
+  <header>
+    <span class="eyebrow">🌳 知・文化・絆の拠点</span>
+    <h1>みんなの森 ぎふメディアコスモス<br>「岐阜市立中央図書館」</h1>
+    <p class="name"><em>2515071 渡部紗朱</em></p>
+  </header>
+
+  <main>
+<div class="card intro">
+<p>みんなの森ぎふメディアコスモスにおいて知の拠点の役割を担う<a href="https://g-mediacosmos.jp/lib/" target="_blank" rel="noopener">「岐阜市立中央図書館」</a>の業務の工夫について紹介する。ここは「岐阜市立中央図書館」、「市民活動交流センター」、「多文化交流プラザ」及び「展示ギャラリー」等からなる複合施設である。この図書館は、これからの図書館のあり方を示唆するような先進的な活動を行っている機関に対して授与されるLibrary of the Year2022に選ばれている。その理由として<span class="highlight">「知・文化・絆の拠点」</span>であり、<span class="highlight">「子どもの声は未来の声」</span>という理念に基づいていることがあげられる。これは、地域の魅力と可能性を掘り起こし、市民と共に成長する場であるということだ。このような図書館であるために行われている業務の工夫として、設備の快適さ、地域との交流、多様性の重視、情報解決のしやすさの４点に注目する。</p>
+</div>
+
+<div class="card">
+<span class="badge">1</span>
+<p>まず、設備の快適さである。建築にもこだわっており、岐阜県産ヒノキを使った天井から感じられるヒノキの香りのリラックス効果によって、集中して本を読むことができる。さらに、図書館内には3つのテラスがあり、暖かい日差しを感じ、並木や岐阜の街並みを眺望しながら本を読むことができる。こうした空間づくりは、単に本を読む場所としてではなく、居心地の良さという観点においても価値がある。</p>
+</div>
+
+<div class="card">
+<span class="badge">2</span>
+<p>次に、地域との交流についてだ。人と人、人とまちが繋がる滞在型図書館を目指しており、楽しく交流できる場が多く設置されている。たとえば、「みんなで学ぶへや」や「談話のへや」ではグループ学習や他者と交流することができる。また、匿名で相談できる交流掲示板があり、司書が悩みに見合った本を勧めるなどして応答してくれる。匿名で気軽に相談できるこのサービスは、情報解決の場に留まらず、居場所としての役割も担っている。</p>
+</div>
+
+<div class="card">
+<span class="badge">3</span>
+<p>次に多様性の重視である。居場所としての役割は中高生のみを対象にするものではなく、他にも多くの人を受け入れるものである。たとえば、視覚障がい者や子どもに向けた読み聞かせの部屋があり、館内には11個のグローブによってエリア分けされている。靴を脱いで楽しめる親子のグローブや、ソファで気楽に楽しめるゆったりグローブ、司書に相談できるレファレンスグローブなど、利用者の年齢や過ごし方に応じて多様な空間が用意されている。</p>
+</div>
+
+<div class="card">
+<span class="badge">4</span>
+<p>最後に、情報解決のしやすさである。レファレンスサービスや交流掲示板での悩み相談は、日常生活や学習における市民の知的活動を支援する役割を果たしている。また、子どもの居場所という点では、本に興味を持った子どもに対して、子ども司書という制度を運用しており、様々な講座や体験を通して司書の仕事を学ぶことができる。成人向けの取り組みとしては、「おとなの夜学」というイベントで専門家を招き対談やディスカッションができるという専門性の高い活動が用意されている。これらは、知りたいという欲求に対して年齢や専門的であるかを問わず、受け入れ、応えるものだといえる。</p>
+</div>
+
+<div class="card">
+<p>これまで、みんなの森ぎふメディアコスモスにおける「岐阜市立中央図書館」の業務の工夫について、設備、交流、多様性、情報解決という４つの観点からみてきた。これらの工夫は<span class="highlight">「子供の声は未来の声」</span>という理念のもと、多様な人が自由に関われる<span class="highlight">「知・文化・絆の拠点」</span>を体現するものであり、市民の居場所として地域と共に成長し続ける場である。</p>
+</div>
+  </main>
+
+  <div class="video-block">
+    <h2>みんなの森ぎふメディアコスモス建設物語</h2>
+    <p class="sub">建設の工夫について</p>
+    <div class="video-frame"><iframe width="560" height="315" src="https://www.youtube.com/embed/5NZ17I9JuAw?si=jcFQqw5Pc-gZ_-Tx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+  </div>
+
+  <footer><span class="leaf-icon">🍃</span>みんなの森 ぎふメディアコスモス「岐阜市立中央図書館」より<span class="leaf-icon">🍃</span></footer>
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.card, .video-block').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

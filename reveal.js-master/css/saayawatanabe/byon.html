@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>わたしの図書館</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#12201c; --bg2:#1a2e28; --ink:#efe9da; --muted:#a9b5ab; --brass:#d1a85a; --line:#35503f; --card:#1d322b; --glow:rgba(255,196,100,.22);
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){--bg:#e9efe7; --bg2:#dce6d9; --ink:#1b2a23; --muted:#4e6256; --brass:#8a6420; --line:#b6c7b4; --card:#f6f9f3; --glow:rgba(255,190,90,.35);}
+}
+:root[data-theme="light"]{--bg:#e9efe7; --bg2:#dce6d9; --ink:#1b2a23; --muted:#4e6256; --brass:#8a6420; --line:#b6c7b4; --card:#f6f9f3; --glow:rgba(255,190,90,.35);}
+:root[data-theme="dark"]{--bg:#12201c; --bg2:#1a2e28; --ink:#efe9da; --muted:#a9b5ab; --brass:#d1a85a; --line:#35503f; --card:#1d322b; --glow:rgba(255,196,100,.22);}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;line-height:1.9;overflow-x:hidden}
+.hero{position:relative;min-height:78vh;display:flex;flex-direction:column;justify-content:flex-end;padding:48px 24px 0;overflow:hidden;background:linear-gradient(var(--bg),var(--bg2))}
+.lamp{position:absolute;top:-120px;right:8%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 65%);animation:breathe 6s ease-in-out infinite;pointer-events:none}
+@keyframes breathe{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.mote{position:absolute;bottom:20%;width:4px;height:4px;border-radius:50%;background:var(--brass);opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{opacity:0;transform:translateY(0)}20%{opacity:.7}100%{opacity:0;transform:translateY(-320px) translateX(30px)}}
+.title{position:relative;max-width:960px;width:100%;margin:0 auto 40px;font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif}
+.title label{display:block;font-size:.9rem;color:var(--muted);margin-bottom:6px;font-family:"Zen Kaku Gothic New",sans-serif}
+.nameRow{display:flex;align-items:baseline;flex-wrap:wrap;gap:.3em}
+#name{font:inherit;font-weight:700;font-size:clamp(2.2rem,8vw,4.6rem);line-height:1.3;color:var(--ink);background:none;border:0;border-bottom:2px dashed var(--line);width:min(100%,12em);padding:0 4px;outline:none;transition:border-color .3s}
+#name:focus{border-bottom-color:var(--brass)}
+.suffix{font-size:clamp(2.2rem,8vw,4.6rem);font-weight:700;line-height:1.3}
+.shelf{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:3px;max-width:960px;width:100%;margin:0 auto;padding:0 4px;height:190px}
+.shelf::after{content:"";position:absolute;left:-24px;right:-24px;bottom:-14px;height:14px;background:linear-gradient(#6b4a2a,#3c2812)}
+.spine{flex:1 1 0;max-width:34px;border-radius:2px 2px 0 0;position:relative;transition:transform 1.4s cubic-bezier(.3,.7,.2,1);transform-origin:bottom}
+.spine::before,.spine::after{content:"";position:absolute;left:0;right:0;height:3px;background:rgba(255,235,190,.5)}
+.spine::before{top:14%}.spine::after{bottom:14%}
+.spine.pull{transform:translateY(-22px)}
+main{max-width:960px;margin:0 auto;padding:72px 24px 40px;display:grid;gap:28px}
+.hint{color:var(--muted);font-size:.92rem;margin:0 0 8px}
+.book{display:grid;grid-template-columns:14px 1fr;background:var(--card);border-radius:4px 10px 10px 4px;overflow:hidden;box-shadow:0 14px 30px -18px rgba(0,0,0,.6);transition:transform .45s cubic-bezier(.3,.7,.2,1)}
+.book:focus-within,.book:hover{transform:translateX(10px) rotate(-.4deg)}
+.cover{background:var(--c);position:relative}
+.cover::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.35),transparent 60%)}
+.page{padding:28px 32px 32px;font-family:"Shippori Mincho",serif}
+.page h2{margin:0 0 12px;font-size:clamp(1.4rem,4vw,2rem);line-height:1.4;font-weight:700}
+.page p{margin:0;font-family:"Zen Kaku Gothic New",sans-serif;font-size:1.05rem;max-width:36em;color:var(--ink)}
+[contenteditable]{outline:none;border-radius:4px;cursor:text;transition:background .25s,box-shadow .25s}
+[contenteditable]:hover{background:rgba(209,168,90,.08)}
+[contenteditable]:focus{background:rgba(209,168,90,.14);box-shadow:0 0 0 2px var(--brass)}
+[contenteditable]:empty::before{content:attr(data-ph);color:var(--muted);opacity:.7}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:20px 24px 56px}
+button{font:inherit;color:var(--ink);background:none;border:1px solid var(--line);border-radius:999px;padding:6px 16px;cursor:pointer}
+button:hover{border-color:var(--brass)}
+button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+@media (max-width:600px){.page{padding:22px 20px 26px}.shelf{height:150px}}
+@media (prefers-reduced-motion: reduce){.lamp,.mote{animation:none}.spine,.book{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="lamp"></div>
+  <div class="title">
+    <label for="name">名前を入力</label>
+    <div class="nameRow"><input id="name" type="text" placeholder="あなたの名前" maxlength="20" autocomplete="off"></div>
+  </div>
+  <div class="shelf" id="shelf" aria-hidden="true"></div>
+</header>
+
+<main>
+  <p class="hint">見出しと本文をクリックすると、そのまま書き換えられます。</p>
+  <article class="book" style="--c:#7b3b3b"><div class="cover"></div><div class="page">
+    <h2 contenteditable="true" spellcheck="false" data-k="h1" data-ph="見出し1を書く">静けさの棚</h2>
+    <p contenteditable="true" spellcheck="false" data-k="b1" data-ph="本文1を書く">ページをめくる音だけが聞こえる場所。ここに、最初の本文を書いてください。</p>
+  </div></article>
+  <article class="book" style="--c:#2f5d7c"><div class="cover"></div><div class="page">
+    <h2 contenteditable="true" spellcheck="false" data-k="h2" data-ph="見出し2を書く">読みかけの一冊</h2>
+    <p contenteditable="true" spellcheck="false" data-k="b2" data-ph="本文2を書く">栞をはさんだままの物語。2つ目の本文は、ここに書けます。</p>
+  </div></article>
+  <article class="book" style="--c:#8a6a24"><div class="cover"></div><div class="page">
+    <h2 contenteditable="true" spellcheck="false" data-k="h3" data-ph="見出し3を書く">閉館までの時間</h2>
+    <p contenteditable="true" spellcheck="false" data-k="b3" data-ph="本文3を書く">ランプの灯りが落ちる前に。3つ目の本文を書き残しましょう。</p>
+  </div></article>
+</main>
+
+<footer><button id="theme" type="button">明るさを切り替える</button></footer>
+
+<script>
+(function(){
+  var colors=["#7b3b3b","#2f5d7c","#8a6a24","#3f6b4b","#5c3f73","#a0522d","#2a4a4f","#8b2f4a"];
+  var shelf=document.getElementById("shelf"), n=window.innerWidth<600?16:26, spines=[];
+  for(var i=0;i<n;i++){
+    var s=document.createElement("div"); s.className="spine";
+    s.style.height=(55+Math.random()*45)+"%";
+    s.style.background=colors[Math.floor(Math.random()*colors.length)];
+    shelf.appendChild(s); spines.push(s);
+  }
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!reduce){
+    setInterval(function(){
+      var s=spines[Math.floor(Math.random()*spines.length)];
+      s.classList.add("pull");
+      setTimeout(function(){s.classList.remove("pull")},2200);
+    },2600);
+    var hero=document.querySelector(".hero");
+    for(var j=0;j<12;j++){
+      var m=document.createElement("span"); m.className="mote";
+      m.style.left=(Math.random()*100)+"%";
+      m.style.animationDuration=(7+Math.random()*7)+"s";
+      m.style.animationDelay=(-Math.random()*10)+"s";
+      hero.appendChild(m);
+    }
+  }
+  var fields=[].slice.call(document.querySelectorAll("[data-k]")), nameEl=document.getElementById("name");
+  function load(k){try{return localStorage.getItem("lib:"+k)}catch(e){return null}}
+  function save(k,v){try{localStorage.setItem("lib:"+k,v)}catch(e){}}
+  var nv=load("name"); if(nv!==null) nameEl.value=nv;
+  nameEl.addEventListener("input",function(){save("name",nameEl.value)});
+  fields.forEach(function(f){
+    var v=load(f.dataset.k); if(v!==null) f.textContent=v;
+    f.addEventListener("input",function(){save(f.dataset.k,f.textContent)});
+    f.addEventListener("paste",function(e){e.preventDefault();var t=(e.clipboardData||window.clipboardData).getData("text");document.execCommand("insertText",false,t)});
+  });
+  document.getElementById("theme").addEventListener("click",function(){
+    var r=document.documentElement, dark=window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var cur=r.getAttribute("data-theme")||(dark?"dark":"light");
+    r.setAttribute("data-theme",cur==="dark"?"light":"dark");
+  });
+})();
+</script>
+</body>
+</html>

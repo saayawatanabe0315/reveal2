@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>図書館概論</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f4f8f0;
+      min-height: 100vh;
+      padding: 3rem 1.2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      max-width: 560px;
+      width: 100%;
+    }
+
+    .card {
+      background: #fbfdf8;
+      border-radius: 4px;
+      padding: 3rem 2.2rem 2.5rem;
+      position: relative;
+      box-shadow: 0 1px 0 rgba(74, 107, 58, 0.06);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 14px; left: 14px; right: 14px; bottom: 14px;
+      border: 1px solid #c9dcb8;
+      pointer-events: none;
+    }
+
+    .leaf-mark {
+      position: absolute;
+      top: 26px;
+      right: 30px;
+      font-size: 18px;
+      color: #6f9c4f;
+    }
+
+    .header-row {
+      text-align: center;
+      margin-bottom: 2.4rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: #7fa860;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #d4e4c2;
+    }
+
+    .main-title-input {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 25px;
+      font-weight: 600;
+      color: #808080;
+      text-align: center;
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      display: block;
+      letter-spacing: 0.03em;
+      margin-bottom: 10px;
+    }
+
+    .main-title-input::placeholder {
+      color: #b7cca3;
+    }
+
+    .divider-leaf {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: #a9c98c;
+    }
+
+    .divider-leaf .line {
+      width: 28px;
+      height: 1px;
+      background: #c9dcb8;
+    }
+
+    .divider-leaf i {
+      font-size: 13px;
+    }
+
+    .author-input {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 12.5px;
+      letter-spacing: 0.06em;
+      color: #355229;
+      border: none;
+      outline: none;
+      background: transparent;
+    }
+
+    .author-input::placeholder {
+      color: #355229;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.9rem;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #dde9d0;
+    }
+
+    .section-number {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #eef4e4;
+      color: #4f7a36;
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-title-input {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 15.5px;
+      font-weight: 600;
+      color: #355229;
+      border: none;
+      outline: none;
+      background: transparent;
+      flex: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .section-title-input::placeholder {
+      color: #4f7a36;
+    }
+
+    .text-block {
+      padding: 0 2px;
+    }
+
+    .block-textarea {
+      font-size: 14px;
+      color: #696969;
+      line-height: 1.95;
+      border: none;
+      outline: none;
+      background: transparent;
+      resize: none;
+      min-height: 90px;
+      width: 100%;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+    }
+
+    .block-textarea::placeholder {
+      color: #696969;
+    }
+
+    .footer-leaf {
+      text-align: center;
+      margin-top: 0.5rem;
+      color: #b7cca3;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+      <i class="ti ti-leaf leaf-mark" aria-hidden="true"></i>
+
+      <div class="header-row">
+        <span class="eyebrow">journal</span>
+        <input class="main-title-input" type="text" placeholder="第10回">
+        <div class="divider-leaf">
+          <span class="line"></span>
+          <i class="ti ti-leaf" aria-hidden="true"></i>
+          <span class="line"></span>
+        </div>
+        <input class="author-input" type="text" placeholder="2515071 渡部紗朱">
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <input class="section-title-input" type="text" placeholder="刑務所図書館">
+        </div>
+        <div class="text-block">
+          <textarea class="block-textarea" placeholder="受刑者に自由は必要ないとは思うが、そうやって社会から隔離することでより精神を攻撃的、閉鎖的にしてしまうと思った。
+日本の収容施設のように、更生にふさわしいと判断された書籍のみの閲覧であれば、本を読んでもいいと思うけれど、刑務所図書館という施設をもってまで受刑者のために書籍を提供する必要はないと感じた。受刑者が刑務所図書館に行ける環境をつくれば、司書の危険性、知識を得ることで脱獄の危険性がでてくる。また、個人的な意見になってしまうけれど、自分が被害者、被害者家族だった場合、罪を犯した人に本を読むという娯楽を与えないでほしいと思う。刑務所は罰を受ける場所であって、娯楽のための施設ではない。" oninput="autoResize(this)"></textarea>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <input class="section-title-input" type="text" placeholder="大学図書館と公共図書館">
+        </div>
+        <div class="text-block">
+          <textarea class="block-textarea" placeholder="公共図書館は幅広い分野を取り扱っていて、大学図書館も幅広いが授業に沿った内容を取り扱っている。" oninput="autoResize(this)"></textarea>
+        </div>
+      </div>
+
+      <div class="footer-leaf">
+        <i class="ti ti-leaf" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function autoResize(ta) {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }
+  </script>
+</body>
+</html>

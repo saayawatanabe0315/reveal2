@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ドキュメント</title>
+<style>
+  :root {
+    --main-color: #2c3e50;
+    --accent-color: #3498db;
+    --bg-color: #f7f9fb;
+    --text-color: #333;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.8;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 50px 60px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  header {
+    text-align: center;
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 25px;
+    margin-bottom: 35px;
+  }
+
+  .title {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--main-color);
+    margin: 0 0 12px 0;
+    letter-spacing: 0.03em;
+  }
+
+  .author {
+    font-size: 1.05em;
+    color: #777;
+  }
+
+  .author::before {
+    content: "作成者：";
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2.heading {
+    font-size: 1.5em;
+    color: #ffffff;
+    background-color: var(--main-color);
+    padding: 10px 18px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+  }
+
+  .body-text {
+    font-size: 1.05em;
+    padding: 0 8px;
+    white-space: pre-wrap;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    color: #aaa;
+    font-size: 0.85em;
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      padding: 30px 20px;
+      margin: 15px;
+    }
+    .title { font-size: 1.6em; }
+    h2.heading { font-size: 1.2em; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+
+    <header>
+      <h1 class="title">第11回図書館概論</h1>
+      <p class="author">渡部紗朱</p>
+    </header>
+
+    <section>
+      <h2 class="heading">Oodi</h2>
+      <p class="body-text">楽器を演奏できる場や幼児が楽しめる場、VR、プリンターなど情報収集の場としてではなく、幅広い年代が気軽に集まれる、自主的に行きたいと思える場で図書館の閉鎖的印象とはかけはなれている多様性があり開放的な図書館だった。</p>
+    </section>
+
+    <section>
+      <h2 class="heading">ヴィボルグ</h2>
+      <p class="body-text">Oodiと比較して、図書館らしい情報収集の場としての魅力があると思った。白ベースで集中して本を読むことができそうだけど、階段が多くて高齢者には厳しそうだと思った。</p>
+    </section>
+
+    <section>
+      <h2 class="heading">感想</h2>
+      <p class="body-text">日本にもフィリピンのような工夫がされた図書館はあるが、楽器やVRなどの設備がある図書館は聞いたことがなくて、フィリピンの図書館にかける費用、熱意の大きさを改めて感じた。ただ、ここまで発展し開放的になっていると図書館というより複合施設という印象で、図書館とよんでいいのか疑問に思った。</p>
+    </section>
+    
+  </div>
+
+</body>
+</html>

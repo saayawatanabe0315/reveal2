@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>情報資源組織論</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#1f2328;--muted:#5d646c;--card:#fff;--line:#e3e0d8;--accent:#0b6e99;--code:#f1efe9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16181b;--fg:#e8e6e1;--muted:#a0a6ad;--card:#1e2125;--line:#33373d;--accent:#6cc4ea;--code:#262a30}}
+:root[data-theme="dark"]{--bg:#16181b;--fg:#e8e6e1;--muted:#a0a6ad;--card:#1e2125;--line:#33373d;--accent:#6cc4ea;--code:#262a30}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 "Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 18px 56px}
+h1{font-size:1.7rem;margin:.2em 0}
+h2{font-size:1.25rem;margin:0 0 .5em;border-left:4px solid var(--accent);padding-left:10px}
+.lead{color:var(--muted)}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:18px 0}
+.src{font-size:.85rem;color:var(--muted);border-top:1px dashed var(--line);margin-top:12px;padding-top:8px}
+.src a{color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+<h1>目録法とSQLの定義</h1>
+<p class="lead">渡部紗朱</p>
+
+<section>
+<h2>目録(・目録法)</h2>
+<p><strong>目録</strong>とは、利用者が資料を「見つけ、見分け、選び、手に入れる」ために、資料のデータをそろえて検索できるようにまとめたものである。</p>
+<p>データは、どんな資料か(書誌データ)、どこにあるか(所在データ)、名前などの表記をそろえるための典拠データの3種類である。</p>
+<p><strong>目録法</strong>は、この目録を作るための方法とルールのことである(筆者の整理)。日本では『日本目録規則2018年版』がそのルールにあたる。</p>
+<div class="src">典拠:
+<a href="https://www.library.tohoku.ac.jp/tohokuchiku/kensyufile/fresh2025-A4.pdf">岩手大学図書館「図書目録」(2025年)</a>(『日本目録規則2018年版』用語解説にもとづく目録の定義) /
+<a href="https://current.ndl.go.jp/ca1951">カレントアウェアネス CA1951</a>(NCR2018の位置づけ)<br>
+注:「目録法」という語そのものを定義した文は確認できていない。上の説明は、目録の定義とNCR2018から筆者がまとめた。
+</div>
+</section>
+
+<section>
+<h2>SQL</h2>
+<p><strong>SQL</strong>(Structured Query Language)とは、リレーショナルデータベースを操作するための標準的な言語である。</p>
+<p>国際規格 ISO/IEC 9075 で決められており、データの入れ物(構造)を定義することと、そのデータを操作することを扱う。</p>
+<div class="src">典拠:
+<a href="https://blog.ansi.org/ansi/sql-standard-iso-iec-9075-2023-ansi-x3-135/">ANSI Blog「The SQL Standard」</a>(標準的な言語であること) /
+<a href="https://reference.globalspec.com/ref/3867261/iso-iec-9075-2-2011">GlobalSpec「ISO/IEC 9075-2」</a>(規格が扱う範囲)
+</div>
+</section>
+</main>
+</body>
+</html>
